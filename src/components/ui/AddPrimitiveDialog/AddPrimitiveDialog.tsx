@@ -2,6 +2,7 @@ import { Flex, InputNumber, Modal, Select, Space, Typography } from "antd";
 import { useState } from "react";
 import "@ant-design/v5-patch-for-react-19";
 import type { PrimitiveType } from "../../../types/PrimitiveItem";
+import './AddPrimitiveDialog.scss';
 
 interface AddPrimitiveDialogProps {
   open: boolean;
@@ -33,15 +34,14 @@ export const AddPrimitiveDialog: React.FC<AddPrimitiveDialogProps> = ({
       open={open}
       onOk={() => onAddGroup(type, length, width, height, count)}
       onCancel={onClose}
-      width={"400px"}
-      style={{ padding: "10px" }}
+      className="modal"
     >
       <Flex vertical gap="10px">
         <Space size="large">
-          <Typography style={{ width: "120px" }}>Type:</Typography>
+          <Typography className="modal-label">Type:</Typography>
           <Select
             defaultValue={type}
-            style={{ width: "180px" }}
+            className="modal-input"
             onChange={(value) => setType(value)}
             options={[
               { value: "Box", label: "Box" },
@@ -50,9 +50,9 @@ export const AddPrimitiveDialog: React.FC<AddPrimitiveDialogProps> = ({
           />
         </Space>
         <Space size="large">
-          <Typography style={{ width: "120px" }}>Length:</Typography>
+          <Typography className="modal-label">Length:</Typography>
           <InputNumber
-            style={{ width: "180px" }}
+            className="modal-input"
             value={length}
             min={5}
             max={100}
@@ -60,9 +60,9 @@ export const AddPrimitiveDialog: React.FC<AddPrimitiveDialogProps> = ({
           />
         </Space>
         <Space size="large">
-          <Typography style={{ width: "120px" }}>Width:</Typography>
+          <Typography className="modal-label">Width:</Typography>
           <InputNumber
-            style={{ width: "180px" }}
+            className="modal-input"
             value={width}
             min={5}
             max={100}
@@ -70,9 +70,9 @@ export const AddPrimitiveDialog: React.FC<AddPrimitiveDialogProps> = ({
           />
         </Space>
         <Space size="large">
-          <Typography style={{ width: "120px" }}>Height:</Typography>
+          <Typography className="modal-label">Height:</Typography>
           <InputNumber
-            style={{ width: "180px" }}
+            className="modal-input"
             value={height}
             min={5}
             max={100}
@@ -80,9 +80,9 @@ export const AddPrimitiveDialog: React.FC<AddPrimitiveDialogProps> = ({
           />
         </Space>
         <Space size="large">
-          <Typography style={{ width: "120px" }}>Number:</Typography>
+          <Typography className="modal-label">Number:</Typography>
           <InputNumber
-            style={{ width: "180px" }}
+            className="modal-input"
             value={count}
             min={1}
             max={10}

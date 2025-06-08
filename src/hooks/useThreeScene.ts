@@ -7,13 +7,12 @@ const useThreeScene = () => {
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
 
   const lighting = (scene: THREE.Scene) => {
-    // Улучшенное освещение
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.5); // Уменьшенная интенсивность
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
     scene.add(ambientLight);
 
     const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
     directionalLight.position.set(20, 45, 20);
-    directionalLight.castShadow = true; // Отбрасывает тени
+    directionalLight.castShadow = true;
     scene.add(directionalLight);
 
     const hemiLight = new THREE.HemisphereLight(0xffffff, 0x080808, 0.5);
@@ -25,8 +24,8 @@ const useThreeScene = () => {
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setClearColor(0xffffff, 1);
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.shadowMap.enabled = true; // Включаем тени
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap; // Мягкие тени
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     const container = document.getElementById("scene");
     if (!container) {
@@ -43,7 +42,7 @@ const useThreeScene = () => {
     const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
     camera.position.set(20, 40, 20);
     camera.lookAt(0, 0, 0);
-    camera.castShadow = true; // Камера отбрасывает тени
+    camera.castShadow = true;
 
     lighting(scene);
 
@@ -81,8 +80,8 @@ const useThreeScene = () => {
   const addObject = (object: THREE.Object3D) => {
     if (sceneRef.current) {
       sceneRef.current.add(object);
-      object.castShadow = true; // Объекты отбрасывают тени
-      object.receiveShadow = true; // Объекты принимают тени
+      object.castShadow = true;
+      object.receiveShadow = true;
     }
   };
 

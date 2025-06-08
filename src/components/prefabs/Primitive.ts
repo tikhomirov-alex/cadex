@@ -12,107 +12,63 @@ export const Primitive = (
   const normals = [];
 
   if (type === "Box") {
-    // Вершины (по часовой стрелке для каждой грани)
     vertices.push(
-      // Передняя грань
-      -width / 2, -height / 2, -length / 2, // 0
-      width / 2, -height / 2, -length / 2, // 1
-      width / 2, height / 2, -length / 2, // 2
-      -width / 2, height / 2, -length / 2, // 3
-      
-      // Задняя грань
-      -width / 2, -height / 2, length / 2, // 4
-      width / 2, -height / 2, length / 2, // 5
-      width / 2, height / 2, length / 2, // 6
-      -width / 2, height / 2, length / 2 // 7
+      -width / 2, -height / 2, -length / 2, // 0.0.0
+      width / 2, -height / 2, -length / 2, // 1.0.0
+      width / 2, height / 2, -length / 2, // 1.1.0
+      -width / 2, height / 2, -length / 2, // 0.1.0
+      -width / 2, -height / 2, length / 2, // 0.0.1
+      width / 2, -height / 2, length / 2, // 1.0.1
+      width / 2, height / 2, length / 2, // 1.1.1
+      -width / 2, height / 2, length / 2 // 0.1.1
     );
 
-    // Индексы (против часовой стрелки для корректного отображения)
     indices.push(
-      // Верхняя грань
-      2, 1, 0, 3, 2, 0,
-      // Передняя грань
-      1, 5, 4, 1, 4, 0,
-      // Нижняя грань
-      5, 6, 7, 5, 7, 4,
-      // Задняя грань
-      6, 2, 3, 6, 3, 7,
-      // Левая грань
-      0, 3, 7, 0, 7, 4,
-      // Правая грань
-      1, 6, 5, 1, 2, 6
+      2, 1, 0, 3, 2, 0, // Top
+      1, 5, 4, 1, 4, 0, // Front
+      5, 6, 7, 5, 7, 4, // Bottom
+      6, 2, 3, 6, 3, 7, // Back
+      0, 3, 7, 0, 7, 4, // Left
+      1, 6, 5, 1, 2, 6 // Right
     );
 
-    // Нормали (по граням)
     normals.push(
-      // Верхняя
-      0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,
-      // Передняя
-      0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1,
-      // Нижняя
-      0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0,
-      // Задняя
-      0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1,
-      // Левая
-      -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0,
-      // Правая
-      1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0
+      0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, // Top
+      0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, // Front
+      0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, // Bottom
+      0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, // Back
+      -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, // Left
+      1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0 // Right
     );
   }
 
-if (type === 'Pyramid') {
-  // Вершины пирамиды
-  vertices.push(
-    // Основание
-    -width / 2, -height / 2, -length / 2,  // 0
-    width / 2, -height / 2, -length / 2,   // 1
-    width / 2, -height / 2, length / 2,    // 2
-    -width / 2, -height / 2, length / 2,   // 3
-    
-    // Вершина
-    0, height / 2, 0                      // 4
-  );
+  if (type === 'Pyramid') {
+    vertices.push(
+      -width / 2, -height / 2, -length / 2,  // 0, 0, 0
+      width / 2, -height / 2, -length / 2,   // 1, 0, 0
+      width / 2, -height / 2, length / 2,    // 1, 0, 1
+      -width / 2, -height / 2, length / 2,   // 0, 0, 1
+      
+      0, height / 2, 0                      // 0.5, 1, 0.5
+    );
 
-  // Индексы пирамиды (против часовой стрелки)
-  indices.push(
-    // Передняя грань
-    0, 4, 1,
-    
-    // Правая грань
-    1, 4, 2,
-    
-    // Задняя грань
-    2, 4, 3,
-    
-    // Левая грань
-    3, 4, 0,
-    
-    // Основание
-    0, 1, 2,
-    2, 3, 0
-  );
+    indices.push(
+      0, 4, 1, // Front
+      1, 4, 2, // Right
+      2, 4, 3, // Back
+      3, 4, 0, // Left
+      0, 1, 2, 2, 3, 0 // Foundation
+    );
 
-  // Нормали для каждой грани
-  normals.push(
-    // Передняя грань
-    0, 0.707, -0.707, 0, 0.707, -0.707, 0, 0.707, -0.707,
-    
-    // Правая грань
-    0.707, 0.707, 0, 0.707, 0.707, 0, 0.707, 0.707, 0,
-    
-    // Задняя грань
-    0, 0.707, 0.707, 0, 0.707, 0.707, 0, 0.707, 0.707,
-    
-    // Левая грань
-    -0.707, 0.707, 0, -0.707, 0.707, 0, -0.707, 0.707, 0,
-    
-    // Основание
-    0, -1, 0, 0, -1, 0, 0, -1, 0,
-    0, -1, 0, 0, -1, 0, 0, -1, 0
-  );
-}
+    normals.push(
+      0, 0.707, -0.707, 0, 0.707, -0.707, 0, 0.707, -0.707, // Front
+      0.707, 0.707, 0, 0.707, 0.707, 0, 0.707, 0.707, 0, // Right
+      0, 0.707, 0.707, 0, 0.707, 0.707, 0, 0.707, 0.707, // Back
+      -0.707, 0.707, 0, -0.707, 0.707, 0, -0.707, 0.707, 0, // Left
+      0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0 // Foundation
+    );
+  }
 
-  // Создаем геометрию
   const geometry = new THREE.BufferGeometry();
   geometry.setIndex(new THREE.Uint16BufferAttribute(indices, 1));
   geometry.setAttribute(
@@ -124,9 +80,6 @@ if (type === 'Pyramid') {
     new THREE.Float32BufferAttribute(normals, 3)
   );
   geometry.computeVertexNormals();
-  // geometry.attributes.position.needsUpdate = true;
-  // geometry.attributes.normal.needsUpdate = true;
-  // geometry.attributes.index.needsUpdate = true;
 
   return geometry;
 };

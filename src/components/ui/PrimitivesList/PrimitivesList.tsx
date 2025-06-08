@@ -3,24 +3,28 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../../../store";
 import type { PrimitiveItem } from "../../../types/PrimitiveItem";
 import * as THREE from "three";
-import { useState } from "react";
+import './PrimitiveList.scss';
 
 interface PrimitivesListProps {
   updateColor: (item: PrimitiveItem, color: number) => void;
-  highlightObject: (item: PrimitiveItem) => void;
+  highlightObject: (item: PrimitiveItem | null) => void;
+  selectedItem: PrimitiveItem | null,
+  setSelectedItem: React.Dispatch<React.SetStateAction<PrimitiveItem | null>>
 }
 
 export const PrimitivesList: React.FC<PrimitivesListProps> = ({
   updateColor,
   highlightObject,
+  selectedItem,
+  setSelectedItem
 }) => {
   const primitives = useSelector((state: RootState) => state.primitives.items);
 
-  const [selectedItem, setSelectedItem] = useState<PrimitiveItem | null>(null);
+  const { Title, Text } = Typography;
 
   return (
     <Flex vertical align="center" style={{ maxHeight: "90%" }}>
-      <Typography>Objects list:</Typography>
+      <Title level={4}>Objects list:</Title>
       {primitives.length > 0 && (
         <List
           itemLayout="horizontal"
@@ -30,15 +34,9 @@ export const PrimitivesList: React.FC<PrimitivesListProps> = ({
           renderItem={(item) => (
             <List.Item
               key={item.name}
-              style={{
-                minWidth: "350px",
-                cursor: "pointer",
-                backgroundColor: selectedItem === item ? "#6babff" : "inherit",
-                fontWeight: selectedItem === item ? "bold" : "normal",
-                userSelect: "none",
-              }}
-              className={selectedItem === item ? "selected" : ""}
-              onClick={() => {
+              className={`item ${selectedItem === item ? "selected" : ""}`}
+              onClick={(e) => {
+                e.stopPropagation();
                 setSelectedItem(item);
                 highlightObject(item);
               }}
@@ -46,11 +44,11 @@ export const PrimitivesList: React.FC<PrimitivesListProps> = ({
               <Flex
                 justify="space-between"
                 align="center"
-                style={{ width: "100%" }}
+                className="item-meta"
               >
                 <Flex vertical>
-                  <Typography>{item.name}</Typography>
-                  <Typography>{`position: ${item.position}`}</Typography>
+                  <Text strong>{item.name}</Text>
+                  <Text code>{`position: ${item.position}`}</Text>
                 </Flex>
 
                 <ColorPicker
@@ -58,7 +56,7 @@ export const PrimitivesList: React.FC<PrimitivesListProps> = ({
                   onChange={(color) =>
                     updateColor(
                       item,
-                      new THREE.Color(color.toCssString()).getHex()
+                      new THREE.Color(color.toHex()).getHex()
                     )
                   }
                 />

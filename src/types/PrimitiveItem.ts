@@ -6,5 +6,4 @@ export interface PrimitiveItem {
   color: string;
   position: string;
   materialUUID: string;
-  checked: boolean;
 }
