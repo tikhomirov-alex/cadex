@@ -56,7 +56,7 @@ export const PrimitivesList: React.FC<PrimitivesListProps> = ({
                   onChange={(color) =>
                     updateColor(
                       item,
-                      new THREE.Color(color.toHex()).getHex()
+                      new THREE.Color(color.toCssString()).getHex()
                     )
                   }
                 />
