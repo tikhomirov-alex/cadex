@@ -1,54 +1,33 @@
-# React + TypeScript + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+Create a 1 page web-application with simple UI and interactive 3D viewer that can
+display a few geometric primitives (boxes and pyramids). Possible design is
+demonstrated above. Web-application should satisfy the following functionality:
+1. User should be able to add a group of the specified primitive type, parameters
+and number. For example, '+' button that opens a popup menu where user can
+specify type of the primitive (box or pyramid), primitives parameters (length,
+width, height) and number of displayed primitives.
+2. Once user accept to add specified primitive:
+a. Specified primitives should be displayed in the viewer in random places
+and with random colors. Number and size of primitives should be from
+user input in point 1.
+b. List of all displayed primitives should appear in UI with specified position
+in viewer and marked with assigned color from point 2.a.
+3. User should be able to select an element from the list in UI. Once the element is
+selected, an appropriate primitive in the viewer should be also visually selected,
+e.g. change color for specified (from code) one. Selecting another element
+should reset selection of already selected primitive in viewer, i.e. reset it state
+before selection.
+4. Adding a new group should add primitives both to list in UI and on scene.
+5. Have possibility to clear the scene and UI list.
+(*) Additional optional requirements:
+6. When adding new primitives group, each primitive side (i.e. each side of box or
+pyramid) should have the random color.
+7. Have possibility to select primitive from the viewer, i.e. clicking on the object in
+viewer should accept selection both to the viewer and UI list.
+Requirements to the implementation:
+1. Everything should be written in Typescript.
+2. The frontend should be written using React or Angular and Three.js (it's okay to
+use wrappers such as react-three-fiber)
+3. UI components should be built using components from a third-party component
+library (Ant Design, Material UI, React Aria, etc.) and customized using CSS.
+4. Each primitive should be represented as a single mesh and created using
+BufferGeometry.
