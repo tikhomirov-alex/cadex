@@ -1,0 +1,9 @@
+@use '../../../styles/colors.scss';
+
+.side-panel {
+  width: 25%;
+  min-width: 400px;
+  height: 100vh;
+  padding: 10px;
+  border-right: 1px solid colors.$black-color;
+}

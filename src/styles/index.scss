@@ -1,0 +1,22 @@
+@use "./fonts.scss";
+@use "./reset.scss";
+@use "./colors";
+
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  background-color: colors.$white-color;
+  color: colors.$black-color;
+}
